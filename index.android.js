@@ -59,12 +59,8 @@ var ZachsDemoApp = React.createClass({
   renderWeather: function(currentWeather){
     return (
       <View style={styles.container}>
-        <Image source={{uri: currentWeather.image.url}} style={styles.logo} />
-        <View style={styles.rightContainer}>
-          <Text style={styles.date}>Weather for {currentWeather.display_location.full}</Text>
-          <Text style={styles.conditions}>{currentWeather.weather}</Text>
-          <Image source={{uri: currentWeather.icon_url}} style={styles.icon} />
-        </View>
+          <Image style={styles.logo} source={{uri: currentWeather.image.url}} />
+          <Text>Weather conditions for {currentWeather.display_location.full}</Text>
       </View>
     );
   },
@@ -74,28 +70,11 @@ var styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
   logo: {
     width: 130,
     height: 80,
-  },
-  icon:{
-    width: 130,
-    height: 130,
-  },
-  rightContainer:{
-    flex: 1,
-  },
-  date:{
-    fontSize: 20,
-    marginBottom: 8,
-    textAlign: 'center',
-  },
-  conditions:{
-    textAlign: 'center',
   },
 });
 
