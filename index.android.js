@@ -10,7 +10,6 @@ var {
   Image,
   StyleSheet,
   Text,
-  ListView,
   View,
 } = React;
 
@@ -71,16 +70,17 @@ var ZachsDemoApp = React.createClass({
         </View>
         <View style={styles.informationContainer}>
           <Text style={styles.obTime}>{currentWeather.observation_time}</Text>
-          <View>
+          <View style={styles.weatherContainer}>
             <Image style={styles.icon} source={{uri: currentWeather.icon_url}} />
-            <Text>{currentWeather.temp_f}</Text>
+            <Text style={styles.temperature}>{currentWeather.temp_f}&#8457;</Text>
           </View>
-          <Text>{currentWeather.weather}</Text>
-
-          <Text>{currentWeather.relative_humidity}</Text>
-          <Text>{currentWeather.wind_string}</Text>
-          
+          <View style={styles.informationContainer}>
+            <Text style={styles.details}>Conditions are {currentWeather.weather}</Text>
+            <Text style={styles.details}>The relative humidity is {currentWeather.relative_humidity}</Text>
+            <Text style={styles.details}>Winds are {currentWeather.wind_string}</Text>
+          </View>
         </View>
+        <Image style={styles.backgroundImage} source={require('./background.jpg')} />
       </View>
     );
   },
@@ -92,10 +92,14 @@ var styles = StyleSheet.create({
     flexDirection: 'column',
     backgroundColor: '#FFF', 
   },
+  backgroundImage:{
+    resizeMode: 'cover',
+    opacity: .2,
+  },
   headerContainer:{
-    flexDirection: 'row',
-    borderWidth: 1,    
+    flexDirection: 'row',  
     height: 90,
+    borderBottomWidth: 1,
   },
   logoBox:{
     width: 130,
@@ -118,18 +122,31 @@ var styles = StyleSheet.create({
   informationContainer:{
     flex: 1,
     flexDirection: 'column',
-    borderWidth: 1,
+
   },
   weatherContainer:{
-    flexDirection: 'row'
+    flexDirection: 'row',
+    borderBottomWidth: 1,
   },
   obTime:{
     textAlign: 'center',
   },
   icon:{
-    width: 130,
-    height: 130,
-  }
+    width: 80,
+    height: 80,
+    marginLeft: 55,
+  },
+  temperature:{
+    flex: 1,
+    fontSize: 50,
+    textAlign: 'center',
+  },
+  details:{
+    fontSize: 20,
+    textAlign: 'left',
+    marginLeft: 30,
+    borderBottomWidth: 1,
+  },
 });
 
 AppRegistry.registerComponent('ZachsDemoApp', () => ZachsDemoApp);
