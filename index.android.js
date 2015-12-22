@@ -10,10 +10,11 @@ var {
   Image,
   StyleSheet,
   Text,
+  ListView,
   View,
 } = React;
 
-var REQUEST_URL = 'http://api.wunderground.com/api/185df6336d8b7434/conditions/q/FL/Orlando.json'
+var REQUEST_URL = 'http://api.wunderground.com/api/185df6336d8b7434/conditions/q/autoip.json'; // formatted API call "conditions" returns temp, wind, etc "autoip" geolocates 
 
 var ZachsDemoApp = React.createClass({
 
@@ -23,7 +24,7 @@ var ZachsDemoApp = React.createClass({
     };
   },
 
-  componentDidMount: function() { //fires off a request after the component has finished loading //          
+  componentDidMount: function() { //fires off a request after the component has finished loading 
     this.fetchData();
   },
 
@@ -59,8 +60,27 @@ var ZachsDemoApp = React.createClass({
   renderWeather: function(currentWeather){
     return (
       <View style={styles.container}>
-          <Image style={styles.logo} source={{uri: currentWeather.image.url}} />
-          <Text>Weather conditions for {currentWeather.display_location.full}</Text>
+        <View style={styles.headerContainer}>
+          <View style={styles.logoBox}>
+            <Image style={styles.logo} source={{uri: currentWeather.image.url}} />
+          </View>
+          <View style={styles.locBox}>
+            <Text style={styles.loc}>Weather conditions for </Text> 
+            <Text style={styles.loc}>{currentWeather.display_location.full}</Text>
+          </View>
+        </View>
+        <View style={styles.informationContainer}>
+          <Text style={styles.obTime}>{currentWeather.observation_time}</Text>
+          <View>
+            <Image style={styles.icon} source={{uri: currentWeather.icon_url}} />
+            <Text>{currentWeather.temp_f}</Text>
+          </View>
+          <Text>{currentWeather.weather}</Text>
+
+          <Text>{currentWeather.relative_humidity}</Text>
+          <Text>{currentWeather.wind_string}</Text>
+          
+        </View>
       </View>
     );
   },
@@ -69,13 +89,47 @@ var ZachsDemoApp = React.createClass({
 var styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: 'column',
+    backgroundColor: '#FFF', 
+  },
+  headerContainer:{
     flexDirection: 'row',
-    backgroundColor: '#F5FCFF',
+    borderWidth: 1,    
+    height: 90,
+  },
+  logoBox:{
+    width: 130,
+    height: 90,
   },
   logo: {
     width: 130,
     height: 80,
   },
+  locBox:{
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',  
+    height: 90,
+  },
+  loc:{
+    fontSize: 20,
+    textAlign: 'center',
+  },
+  informationContainer:{
+    flex: 1,
+    flexDirection: 'column',
+    borderWidth: 1,
+  },
+  weatherContainer:{
+    flexDirection: 'row'
+  },
+  obTime:{
+    textAlign: 'center',
+  },
+  icon:{
+    width: 130,
+    height: 130,
+  }
 });
 
 AppRegistry.registerComponent('ZachsDemoApp', () => ZachsDemoApp);
